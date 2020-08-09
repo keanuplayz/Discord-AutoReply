@@ -9,6 +9,7 @@ const PREFIX = "%!";
 var autoReply = false
 
 var bot = new Discord.Client();
+let channelArray = []
 
 function botstartupmode() {
     try {
@@ -23,6 +24,7 @@ bot.on("ready", async function () {
     console.log(" ")
     console.log("*---------------------*")
     console.log("Started AutoReply for " + bot.user.tag)
+    console.log(`Prefix is: ${PREFIX}`)
     if (os.platform == "linux") console.log("I'm running on Linux...")
     if (os.platform == "win32") console.log("I'm running on Windows...")
     console.log("Time: " + d())
@@ -30,22 +32,22 @@ bot.on("ready", async function () {
 });
 
 bot.on('message', async (msg) => {
-    // const guildTag =
-    //   msg.channel.type === 'text' ? `[${msg.guild.name}]` : '[DM]';
-    // const channelTag =
-    //   msg.channel.type === 'text' ? `[#${msg.channel.name}]` : '';
-    // console.log(
-    //   `${guildTag}${channelTag} ${msg.author.tag}: ${msg.content}`,
-    // );
     
     const guildornot = msg.channel.type === 'text' ? `[${msg.guild.name}]` : "[DM]";
     
+
+
     if (guildornot === "[DM]" && autoReply == true) {
         if (msg.author.tag !== bot.user.tag) {
+            if(channelArray.includes(msg.channel.id)) {
+                return;
+            }
             const jsonConfig = JSON.parse(fs.readFileSync("./config.json", "utf8"));
             var replymsg = jsonConfig.message;
             msg.channel.send(replymsg);
+            channelArray.push(msg.channel.id);
         }
+
         if (msg.author.tag === bot.user.tag) {
             if (msg.content.startsWith(`${PREFIX}off`)) {
                 autoReply = false;

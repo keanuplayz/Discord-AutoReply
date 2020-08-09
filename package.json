@@ -1,0 +1,24 @@
+{
+  "name": "discord-autoreply",
+  "version": "1.0.0",
+  "description": "Application to automatically reply to messages when you're in DND.",
+  "repository": {
+    "url": "https://github.com/keanuplayz/Discord-AutoReply"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  },
+  "keywords": [],
+  "author": "Keanu Timmermans",
+  "contributors": [
+    {
+      "name": "Theike Geraads",
+      "url": "https://github.com/thgeraads"
+    }
+  ],
+  "license": "Apache-2.0"
+}
